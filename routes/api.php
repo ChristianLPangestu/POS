@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderHistoryController;
 
 // Rute untuk registrasi dan login
 Route::post('/register', [AuthController::class, 'register']);
@@ -27,3 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cart/add-one', [OrderController::class, 'addOneCartItem']);
     Route::post('/cart/minus-one', [OrderController::class, 'minusOneCartItem']);
 });
+// Rute untuk operasi history
+Route::middleware('auth:sanctum')->get('/order-history', [OrderHistoryController::class, 'getOrderHistory']);
+Route::middleware('auth:sanctum')->get('/order-history/{order_id}', [OrderHistoryController::class, 'getOrderDetail']);
